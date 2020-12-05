@@ -1,1 +1,11 @@
-console.log(require('fs').readFileSync('input.txt', 'utf8').trimEnd().split('\n').map(b => parseInt(b.replace(/\w/g, c => ({F: '0', B: '1', L:'0', R: '1'}[c])), 2)).sort((a, b) => a-b).find((v, i, s) => i !== 0 && s[i-1] == v-2) - 1);
+const fs = require('fs');
+const rawInput = fs.readFileSync('input.txt', 'utf8').trimEnd();
+
+const seat = rawInput
+                .split('\n')
+                .map(b => parseInt(b.replace(/F|L/g, '0').replace(/B|R/g, '1'), 2))
+                .sort((a, b) => a - b)
+                .find((v, i, s) => s[i-1] === v-2)
+                - 1
+            ;
+console.log(seat);
