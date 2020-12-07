@@ -28,11 +28,9 @@ shiny_gold.counted = true;
 
 while (allParents.length) {
     let newParents = [];
-    console.log('--');
     for (let i = allParents.length - 1; i >= 0; i--) {
         let bag = allParents[i];
         if (!bag.counted) {
-            console.log(bag.name, bag.counted)
             let holders = [...bag.heldby.values()].filter(b => !b.counted);
             newParents.push(...holders);
             bag.counted = true;

@@ -17,7 +17,6 @@ for (let bagString of input) {
 function countBag (name) {
     const bag = bags.get(name);
     if (bag.count) return bag.count;
-    console.log(bag)
     bag.count = bag.holds.reduce((c, b) => c + b[0] * countBag(b[1]), 1);
     return bag.count;
 }
