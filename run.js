@@ -12,7 +12,7 @@ const {day, part, runs = 1} = argsMatch.groups;
 
 let input;
 try {
-    input = fs.readFileSync(`${day}/input.txt`, 'utf8').trimEnd().split('\n');
+    input = fs.readFileSync(`${day}/input.txt`, 'utf8').trimEnd();
 } catch (e) {
     console.error(`${day}/input.txt not found.`)
     process.exit(1);

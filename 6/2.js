@@ -1,5 +1,5 @@
 module.exports = function (input) {
-    input = input.join('\n').split('\n\n');
+    input = input.split('\n\n');
     let count = 0;
     for (let group of input) {
         let lines = group.split('\n');

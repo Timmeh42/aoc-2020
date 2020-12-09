@@ -1,5 +1,5 @@
 module.exports = function (input) {
-    input = input.map(i => parseInt(i));
+    input = input.split('\n').map(i => parseInt(i));
     for (let i = input.length - 1; i >= 0; i--)
     for (let j = i - 1; j >= 0; j--)
     for (let k = j - 1; k >= 0; k--) {

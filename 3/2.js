@@ -1,4 +1,5 @@
 module.exports = function (input) {
+    input = input.split('\n');
     const width = input[0].length;
 
     let mult = 1;

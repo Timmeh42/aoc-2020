@@ -1,4 +1,5 @@
 module.exports = function (input) {
+    input = input.split('\n');
     let acc = 0;
     let pnt = 0;
 

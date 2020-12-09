@@ -1,5 +1,5 @@
 module.exports = function (input) {
-    input = input.map(i => parseInt(i));
+    input = input.split('\n').map(i => parseInt(i));
     let preamble = 25;
     const adds = new Set();
     

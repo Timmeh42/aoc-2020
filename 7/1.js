@@ -1,4 +1,5 @@
 module.exports = function (input) {
+    input = input.split('\n');
     const bags = new Map();
     for (let bagString of input) {
         const bagName = bagString.match(/^\w+ \w+(?= bag)/g)[0];
