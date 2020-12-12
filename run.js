@@ -14,7 +14,7 @@ let input;
 try {
     input = fs.readFileSync(`${day}/input.txt`, 'utf8').trimEnd();
 } catch (e) {
-    console.error(`${day}/input.txt not found.`)
+    console.error(`${day}/input.txt not found.`);
     process.exit(1);
 }
 
@@ -24,7 +24,8 @@ for (let p of parts) {
     try {
         answer = require(`./${day}/${p}.js`);
     } catch (e) {
-        console.error(`${day}/${p} not found.`)
+        console.error(`${day}/${p} not found or failed parse.`);
+        console.error(e.message);
         process.exit(1);
     }
     let solution;
