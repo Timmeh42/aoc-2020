@@ -1,40 +1,42 @@
 module.exports = function (input) {
     input = input.split('\n');
-    let dx = 10;
-    let dy = -1;
-    let x = 0;
-    let y = 0;
+    let dx = 10,
+        dy = -1;
+    let x = 0,
+        y = 0;
     for (let line of input) {
-        switch (line[0]) {
+        const instr = line[0];
+        const value = parseInt(line.slice(1));
+        switch (instr) {
             case 'N': {
-                dy -= parseInt(line.slice(1));
+                dy -= value;
                 break;
             }
             case 'S': {
-                dy += parseInt(line.slice(1));
+                dy += value;
                 break;
             }
             case 'E': {
-                dx += parseInt(line.slice(1));
+                dx += value;
                 break;
             }
             case 'W': {
-                dx -= parseInt(line.slice(1));
+                dx -= value;
                 break;
             }
             case 'F': {
-                x += dx * parseInt(line.slice(1));
-                y += dy * parseInt(line.slice(1));
+                x += dx * value;
+                y += dy * value;
                 break;
             }
             case 'L': {
-                for (let d = parseInt(line.slice(1)); d > 0; d-=90) {
+                for (let d = value; d > 0; d-=90) {
                     [dy, dx] = [-dx, dy];
                 }
                 break;
             }
             case 'R': {
-                for (let d = parseInt(line.slice(1)); d > 0; d-=90) {
+                for (let d = value; d > 0; d-=90) {
                     [dy, dx] = [dx, -dy];
                 }
                 break;
