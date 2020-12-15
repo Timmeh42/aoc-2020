@@ -1,15 +1,18 @@
 module.exports = function (input) {
-    const nums = new Map(input.split(',').map((n, i) => [parseInt(n), i+1]));
+    const size = 2020;
+    const nums = new Uint32Array(size);
+    input.split(',').map(n => parseInt(n)).forEach((n, i) => nums[n] = i+1);
     let last = 0;
     let next = 0;
-    for (let i = nums.size + 1; i <= 2020; i++) {
+    for (let i = input.split(',').length + 1; i <= size; i++) {
         last = next;
-        if (nums.has(last)) {
-            next = i - nums.get(last);
+        const lastSeen = nums[last];
+        if (lastSeen !== 0) {
+            next = i - lastSeen;
         } else {
             next = 0;
         }
-        nums.set(last, i);
+        nums[last] = i;
     }
     return last;
 }
