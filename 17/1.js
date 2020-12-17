@@ -1,9 +1,11 @@
 module.exports = function (input) {
-    let read = new Map();
-    let write = new Map();
+    let read = new Set();
+    let write = new Set();
     for (let [y, line] of input.split('\n').entries()) {
         for (let [x, v] of line.split('').entries()) {
-            read.set(x +' '+ y + ' ' + 0, v === '#');
+            if (v === '#') {
+                read.add(x +' '+ y + ' ' + 0);
+            }
         }
     }
     let zmin = 0,
@@ -17,28 +19,28 @@ module.exports = function (input) {
         for (let z = zmin - t; z < zmax + t; z++)
         for (let y = ymin - t; y < ymax + t; y++)
         for (let x = xmin - t; x < xmax + t; x++) {
-            let active = read.get(x +' '+ y + ' ' + z) || false;
+            let active = read.has(x +' '+ y + ' ' + z);
             let neighbours = 0 - active;
             for (let dz = z - 1; dz <= z + 1; dz++)
             for (let dy = y - 1; dy <= y + 1; dy++)
             for (let dx = x - 1; dx <= x + 1; dx++) {
-                neighbours += read.get(dx +' '+ dy + ' ' + dz) || 0;
+                neighbours += read.has(dx +' '+ dy + ' ' + dz);
             }
             if (active) {
                 if (neighbours === 2 || neighbours === 3) {
-                    write.set(x +' '+ y + ' ' + z, true);
+                    write.add(x +' '+ y + ' ' + z);
                 } else {
-                    write.set(x +' '+ y + ' ' + z, false);
+                    write.delete(x +' '+ y + ' ' + z);
                 }
             } else {
                 if (neighbours === 3) {
-                    write.set(x +' '+ y + ' ' + z, true);
+                    write.add(x +' '+ y + ' ' + z);
                 } else {
-                    write.set(x +' '+ y + ' ' + z, false);
+                    write.delete(x +' '+ y + ' ' + z);
                 }
             }
         }
         [read, write] = [write, read];
     }
-    return [...read.values()].reduce((sum, v) => sum += v, 0);
+    return read.size;
 }
