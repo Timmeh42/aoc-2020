@@ -28,13 +28,13 @@ function buildRule (id, rules, builds) {
         let ruleString = '';
         let rulestrings = [];
         for (let n = 1; n < 10; n++) {
-            rulestrings.push('(' + buildRule(42, rules, builds) + '{'+(n+1)+',}' + buildRule(31, rules, builds) + '{'+n+'})');
+            rulestrings.push('(?:' + buildRule(42, rules, builds) + '{'+(n+1)+',}' + buildRule(31, rules, builds) + '{'+n+'})');
         }
-        ruleString = '(' + rulestrings.join('|') + ')';
+        ruleString = '(?:' + rulestrings.join('|') + ')';
         builds[id] = ruleString;
         return ruleString;
     }
-    let ruleString = '(' + rule.map(g => '(' + g.map(i => buildRule(i, rules, builds)).join('') + ')').join('|') + ')';
+    let ruleString = '(?:' + rule.map(g => '(?:' + g.map(i => buildRule(i, rules, builds)).join('') + ')').join('|') + ')';
     builds[id] = ruleString;
     return ruleString;
 }

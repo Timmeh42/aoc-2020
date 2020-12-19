@@ -24,7 +24,7 @@ function buildRule (id, rules, builds) {
         return builds[id];
     }
     const rule = rules[id];
-    let ruleString = '(' + rule.map(g => '(' + g.map(i => buildRule(i, rules, builds)).join('') + ')').join('|') + ')';
+    let ruleString = '(?:' + rule.map(g => '(?:' + g.map(i => buildRule(i, rules, builds)).join('') + ')').join('|') + ')';
     builds[id] = ruleString;
     return ruleString;
 }
