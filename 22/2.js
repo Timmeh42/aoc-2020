@@ -4,6 +4,7 @@ module.exports = function (input) {
 }
 
 function combat (deck1, deck2, orig = false) {
+    if (!orig && deck1.includes(50)) return false;
     const memory = new Set();
     let gameWinner = null;
     while (deck1.length !== 0 && deck2.length !== 0) {
