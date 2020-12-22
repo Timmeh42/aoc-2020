@@ -1,9 +1,10 @@
 module.exports = function (input) {
     let decks = input.match(/(\n\d+)+/g).map(s => s.trim().split('\n').map(n => parseInt(n)).reverse());
-    return combat(decks[0], decks[1], true);
+    const maxcard = Math.max(...decks[0], ...decks[1]);
+    return combat(decks[0], decks[1], maxcard, true);
 }
 
-function combat (deck1, deck2, orig = false) {
+function combat (deck1, deck2, maxcard, orig = false) {
     if (!orig && deck1.includes(50)) return false;
     const memory = new Set();
     let gameWinner = null;
@@ -18,7 +19,7 @@ function combat (deck1, deck2, orig = false) {
         const c1 = deck1.pop(),
             c2 = deck2.pop();
         if (c1 <= deck1.length && c2 <= deck2.length) {
-            roundWinner = combat(deck1.slice(-c1), deck2.slice(-c2));
+            roundWinner = combat(deck1.slice(-c1), deck2.slice(-c2), maxcard);
         } else {
             roundWinner = c2 > c1;
         }
