@@ -1,23 +1,23 @@
 module.exports = function (input) {
+    input = input.split('').map(n => parseInt(n));
     let cups = new Int32Array(10);
     for (let i = input.length - 1; i >= 0; i--) {
-        const n = parseInt(input[i]);
-        const m = parseInt(input[(i+1) % input.length]);
-        cups[n] = m;
+        cups[input[i]] = input[i + 1];
     }
    
-    let currentCup = parseInt(input[0]);
-    cups[parseInt(input[input.length-1])] = currentCup;
+    let currentCup = input[0];
+    cups[input[input.length-1]] = currentCup;
 
     for (let round = 1; round <= 100; round++) {
-        let takeOut = cups[currentCup];
-        cups[currentCup] = cups[cups[cups[cups[currentCup]]]];
+        const takeOut = cups[currentCup];
+        const takeOut2 = cups[takeOut];
+        const takeOut3 = cups[takeOut2];
+        cups[currentCup] = cups[takeOut3];
         let destinationCup = currentCup;
         do {
-            destinationCup--;
-            if (destinationCup === 0) destinationCup = 9;
-        } while (destinationCup === takeOut || destinationCup === cups[takeOut] || destinationCup === cups[cups[takeOut]]);
-        cups[cups[cups[takeOut]]] = cups[destinationCup];
+            if (--destinationCup === 0) destinationCup = 9;
+        } while (destinationCup === takeOut || destinationCup === takeOut2 || destinationCup === takeOut3);
+        cups[takeOut3] = cups[destinationCup];
         cups[destinationCup] = takeOut;
         currentCup = cups[currentCup];
     }
