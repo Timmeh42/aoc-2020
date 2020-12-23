@@ -1,5 +1,5 @@
 module.exports = function (input) {
-    let cups = Array(1_000_000);
+    let cups = Array(1_000_001);
     for (let j = 1_000_000; j >= 10; j--) {
         cups[j] = j+1;
     }
