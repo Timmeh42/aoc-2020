@@ -1,40 +1,36 @@
 module.exports = function (input) {
-    let cups = Array(10);
+    let cups = new Int32Array(10);
     for (let i = input.length - 1; i >= 0; i--) {
         const n = parseInt(input[i]);
         const m = parseInt(input[(i+1) % input.length]);
-        const cup = {
-            id: n,
-            next: cups[m],
-        }
-        cups[n] = cup;
+        cups[n] = m;
     }
-    const lastCup = cups[parseInt(input[input.length-1])];
-    let currentCup = cups[parseInt(input[0])];
-    lastCup.next = currentCup;
+   
+    let currentCup = parseInt(input[0]);
+    cups[parseInt(input[input.length-1])] = currentCup;
 
     for (let round = 1; round <= 100; round++) {
-        let takeOut = currentCup.next;
-        currentCup.next = currentCup.next.next.next.next
-        let destinationCup;
-        for (let d = currentCup.id-1; true; d--) {
-            if (d === 0) d = 9;
-            if (d === takeOut.id || d === takeOut.next.id || d === takeOut.next.next.id) continue;
-            destinationCup = cups[d];
-            break;
+        let takeOut = cups[currentCup];
+        cups[currentCup] = cups[cups[cups[cups[currentCup]]]];
+        let destinationCup = currentCup;
+        while (true) {
+            destinationCup--;
+            if (destinationCup === 0) destinationCup = 9;
+            if (destinationCup !== takeOut && destinationCup !== cups[takeOut] && destinationCup !== cups[cups[takeOut]]) break;
         }
-        takeOut.next.next.next = destinationCup.next;
-        destinationCup.next = takeOut;
-        currentCup = currentCup.next;
+        cups[cups[cups[takeOut]]] = cups[destinationCup];
+        cups[destinationCup] = takeOut;
+        currentCup = cups[currentCup];
     }
-    return printCups(cups[1]);
+    return printCups(cups);
 }
 
-function printCups (currentCup) {
+function printCups (cups) {
     let s = '';
+    let cup = 1;
     for (let i = 0; i < 8; i++) {
-        s += currentCup.next.id;
-        currentCup = currentCup.next
+        cup = cups[cup];
+        s += cup;
     }
     return s;
 }
