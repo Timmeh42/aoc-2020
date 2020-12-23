@@ -13,11 +13,10 @@ module.exports = function (input) {
         let takeOut = cups[currentCup];
         cups[currentCup] = cups[cups[cups[cups[currentCup]]]];
         let destinationCup = currentCup;
-        while (true) {
+        do {
             destinationCup--;
             if (destinationCup === 0) destinationCup = 9;
-            if (destinationCup !== takeOut && destinationCup !== cups[takeOut] && destinationCup !== cups[cups[takeOut]]) break;
-        }
+        } while (destinationCup === takeOut || destinationCup === cups[takeOut] || destinationCup === cups[cups[takeOut]]);
         cups[cups[cups[takeOut]]] = cups[destinationCup];
         cups[destinationCup] = takeOut;
         currentCup = cups[currentCup];
