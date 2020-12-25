@@ -25,11 +25,5 @@ module.exports = function (input) {
         secret *= doorReplica;
         secret %= 20201227;
     }
-
-    let secret2 = 1;
-    for (let i = 0; i < doorloops; i++) {
-        secret2 *= cardReplica;
-        secret2 %= 20201227;
-    }
-    return [secret, secret2];
+    return secret;
 }
